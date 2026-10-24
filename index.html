@@ -95,6 +95,7 @@ nav a{transition:background .25s,color .25s,transform .25s}nav a:hover{transform
 .cal{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;max-width:340px;margin:14px auto;box-shadow:0 8px 24px #0001}.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.ch button{border:0;background:none;color:var(--pri);font-size:22px;cursor:pointer;width:32px;height:32px;border-radius:50%}.ch button:disabled{opacity:.25;cursor:default}
 .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:13px}.cg i{font-style:normal;font-size:11px;font-weight:800;color:var(--muted);padding:6px 0}.cg button,.cg span{aspect-ratio:1}.cg button{border:0;border-radius:50%;background:none;color:var(--pri);font:inherit;font-weight:700;cursor:pointer;transition:.2s}.cg button:hover:not(:disabled){background:var(--soft)}.cg button:disabled{color:var(--bd);cursor:default}.cg button.on{background:var(--pri);color:#fff}
 .tz{text-align:center;font-size:12px;color:var(--muted);margin:8px 0}.tsg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.ts{border:1px solid var(--pri);background:var(--card);color:var(--pri);border-radius:10px;padding:10px 0;font:inherit;font-weight:800;cursor:pointer;transition:.2s}.ts:hover,.ts.on{background:var(--pri);color:#fff}.bkh{text-align:center}.bkh .ok{margin:0 auto 12px}
+.opt i{font-size:18px}
 </style></head><body>
 <div class="top"><div class="w"><span>🕒 Free, no-obligation quotes</span><span>📍 Demo City, UK</span><span>🛡 Local roofing specialists</span></div></div>
 <header><div class="w"><a class="logo" href="#top"><i>⌂</i><span>Your Roofing<br>Company</span></a>
@@ -160,22 +161,28 @@ for(var z=0;z<SC.length;z+=3)SL.push('<div class="sg">'+SC.slice(z,z+3).join("")
 mk("sv2",SL,"one");
 var AREA=["E","EC","N","NW","SE","SW","W","WC","EN","IG","RM","CM","CO","SS","BR","CR","DA","HA","KT","SM","TW","UB","WD","SG","AL"];
 var R=function(a){return a.kind===0},C=function(a){return a.kind===1};
-var Q=[{id:"kind",q:"What type of property needs roofing work?",o:["Residential (home)","Commercial (business)"]},
-{id:"area",q:"Is your property in London or surrounding areas?",o:["Yes","No"],x:{1:1}},
-{id:"own",q:"Are you the homeowner of the property?",o:["Yes","No"],if:R,x:{1:1}},
-{id:"type",q:"What type of property do you have?",o:["Detached","Semi-Detached","Terraced","Bungalow","Flat / Other"],if:R},
-{id:"roof",q:"Do you own or share the freehold of the roof?",o:["Yes","No, someone else manages it"],if:function(a){return a.kind===0&&a.type===4},x:{1:1}},
-{id:"svc",q:"What do you need doing?",o:["Leak or storm damage","Roof repair","Roof replacement","New roof / re-roof","Flat roof","Guttering, fascias, soffits","Chimney work","Roof inspection"],if:R},
-{id:"role",q:"What is your role at the property?",o:["Property owner / landlord","Property or facilities manager","Tenant, with the owner’s approval","Tenant, no approval yet"],if:C,x:{3:1}},
-{id:"bld",q:"What type of commercial building is it?",o:["Office","Shop / retail","Warehouse / industrial","Other commercial"],if:C},
-{id:"svcc",q:"What do you need doing?",o:["Leak or storm damage","Roof repair","Roof replacement","Flat roof / membrane","Guttering and drainage","Inspection / maintenance plan"],if:C},
-{id:"when",q:"When do you need this work done?",o:["Urgent – water coming in","Within a month","Within 3 months","Just researching prices"],x:{3:1}},
-{id:"ct",q:"Where should we call you?",if:R,t:[["pc","Post code (e.g. NW9 8QE)","text"],["nm","Your name","text"],["ph","Phone number","tel"]],c:1},
-{id:"ct",q:"Where should we call you?",if:C,t:[["pc","Building post code (e.g. NW9 8QE)","text"],["co","Company name","text"],["nm","Your name","text"],["ph","Phone number","tel"]],c:1}];
+var Q=[{id:"kind",q:"🏗️ What type of property needs roofing work?",o:["🏠 Residential (home)","🏢 Commercial (business)"]},
+{id:"area",q:"📍 Is your property in London or surrounding areas?",o:["✅ Yes","❌ No"],x:{1:1}},
+{id:"own",q:"🔑 Are you the homeowner of the property?",o:["✅ Yes","❌ No"],if:R,x:{1:1}},
+{id:"type",q:"🏡 What type of property do you have?",o:["🏡 Detached","🏘️ Semi-Detached","🧱 Terraced","🛖 Bungalow","🏢 Flat / Other"],if:R},
+{id:"roof",q:"🏢 Do you own or share the freehold of the roof?",o:["✅ Yes","❓ No, someone else manages it"],if:function(a){return a.kind===0&&a.type===4},x:{1:1}},
+{id:"svc",q:"🛠️ What do you need doing?",o:["💧 Leak or storm damage","🔧 Roof repair","🏠 Roof replacement","🆕 New roof / re-roof","⬜ Flat roof","🌧️ Guttering, fascias, soffits","🧱 Chimney work","🔍 Roof inspection"],if:R},
+{id:"role",q:"👤 What is your role at the property?",o:["👑 Property owner / landlord","🧑‍💼 Property or facilities manager","🤝 Tenant, with the owner’s approval","⛔ Tenant, no approval yet"],if:C,x:{3:1}},
+{id:"bld",q:"🏬 What type of commercial building is it?",o:["🏢 Office","🛍️ Shop / retail","🏭 Warehouse / industrial","🏗️ Other commercial"],if:C},
+{id:"svcc",q:"🛠️ What do you need doing?",o:["💧 Leak or storm damage","🔧 Roof repair","🏠 Roof replacement","⬜ Flat roof / membrane","🌧️ Guttering and drainage","📋 Inspection / maintenance plan"],if:C},
+{id:"when",q:"⏰ When do you need this work done?",o:["🚨 Urgent – water coming in","📅 Within a month","🗓️ Within 3 months","💭 Just researching prices"],x:{3:1}},
+{id:"ct",q:"📞 Where should we call you?",if:R,t:[["pc","📮 Post code (e.g. NW9 8QE)","text"],["nm","👤 Your name","text"],["ph","📞 Phone number","tel"]],c:1},
+{id:"ct",q:"📞 Where should we call you?",if:C,t:[["pc","📮 Building post code (e.g. NW9 8QE)","text"],["co","🏢 Company name","text"],["nm","👤 Your name","text"],["ph","📞 Phone number","tel"]],c:1}];
+var MAIL="https://formsubmit.co/ajax/digitalzonebest@gmail.com";
+function send(d){try{d._template="table";d._captcha="false";d._honey="";fetch(MAIL,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(d)}).catch(function(){})}catch(e){}}
+function lead(){var d={},ct=a.ct||{};flow().forEach(function(q){if(!q.t)d[q.q.slice(q.q.indexOf(" ")+1)]=q.o[a[q.id]].slice(q.o[a[q.id]].indexOf(" ")+1)});
+d.Status=dq?"NOT QUALIFIED":"QUALIFIED";d.Priority=dq?"-":(a.when<=1?"HOT (call within 30 min)":"Normal (call within 1 working day)");
+d.Name=ct.nm;d.Phone=ct.ph;d["Post code"]=ct.pc;if(ct.co)d.Company=ct.co;d._subject="New roofing lead: "+d.Status+" - "+ct.nm;send(d)}
+function sendBooking(){var ct=a.ct||{};send({_subject:"Call booked: "+ct.nm,Name:ct.nm,Phone:ct.ph,Date:bk.d.toDateString(),Time:bk.t,Timezone:Intl.DateTimeFormat().resolvedOptions().timeZone})}
 var bk={m:new Date(),d:null,t:null,ph:0};bk.m.setDate(1);bk.m.setHours(0,0,0,0);
 function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function book(){var nm=esc((a.ct.nm||"").split(" ")[0]),tz=Intl.DateTimeFormat().resolvedOptions().timeZone,now=new Date(),today=new Date();today.setHours(0,0,0,0);
-if(bk.ph==1){v.innerHTML='<div class="bkh"><div class="ok">✓</div><h2>You’re booked, '+nm+'</h2><p style="color:var(--muted);font-size:14px"><b class="hi">'+bk.d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})+' at '+bk.t+'</b> ('+esc(tz)+'). Our team will still ring you first to confirm. Demo only: nothing was actually sent.</p></div>';return}
+if(bk.ph==1){v.innerHTML='<div class="bkh"><div class="ok">✓</div><h2>You’re booked, '+nm+'</h2><p style="color:var(--muted);font-size:14px"><b class="hi">'+bk.d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})+' at '+bk.t+'</b> ('+esc(tz)+'). Our team will still ring you first to confirm.</p></div>';return}
 var y=bk.m.getFullYear(),mo=bk.m.getMonth(),first=new Date(y,mo,1).getDay(),dim=new Date(y,mo+1,0).getDate(),c="";
 ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(function(d){c+='<i>'+d+'</i>'});
 for(var i=0;i<first;i++)c+='<span></span>';
@@ -188,7 +195,7 @@ document.getElementById("nm2").onclick=function(){bk.m=new Date(y,mo+1,1);book()
 v.querySelectorAll(".cg button").forEach(function(b){b.onclick=function(){bk.d=new Date(+b.dataset.t);bk.t=null;book()}});
 v.querySelectorAll(".ts").forEach(function(b){b.onclick=function(){bk.t=b.dataset.s;book()}});
 document.getElementById("sk").onclick=function(){bk.ph=2;paint()};
-document.getElementById("bn").onclick=function(){bk.ph=1;book()}}
+document.getElementById("bn").onclick=function(){bk.ph=1;sendBooking();book()}}
 var a={},st=0,sent=false,dq=false,v=document.getElementById("sv");
 function flow(){return Q.filter(function(q){return!q.if||q.if(a)})}
 function go(){var q=flow()[st],err="";
@@ -200,12 +207,12 @@ else if(!/^\+?\d{10,13}$/.test(o.ph.replace(/[\s()-]/g,"")))err="Please enter a 
 else if(!document.getElementById("cs").checked)err="Please tick the box so we can call you.";
 if(err){document.getElementById("er").textContent=err;return}
 a.pcbad=AREA.indexOf(p.match(/^[A-Z]{1,2}/)[0])<0;a[q.id]=o;a.cs=true}
-if(st>=flow().length-1){dq=!!a.pcbad||flow().some(function(f){return f.x&&f.x[a[f.id]]});sent=true}else st++;paint()}
+if(st>=flow().length-1){dq=!!a.pcbad||flow().some(function(f){return f.x&&f.x[a[f.id]]});sent=true;lead()}else st++;paint()}
 function paint(){var N=flow().length,p=Math.round((st+1)/N*100);document.getElementById("sl").textContent="Step "+(st+1)+" of "+N;document.getElementById("sp").textContent=p+"%";document.getElementById("sb").style.width=p+"%";
-if(sent){var hot=a.when<=1;if(!dq&&bk.ph!=2){book();return}v.innerHTML=dq?'<div class="ok no">✕</div><h2>Sorry, we’re not able to help</h2><p style="color:var(--muted);font-size:14px">Sorry, we’re unable to help with your request based on your answers. Thank you for your interest.</p>':'<div class="ok">✓</div><h2>You’re qualified – we’ll contact you soon</h2><p style="color:var(--muted);font-size:14px">Thanks, '+a.ct.nm+'. '+(hot?'<b class="hi">Priority request: we’ll call you within 30 minutes</b>':'<b class="hi">We’ll call you within one working day</b>')+' to arrange your free quote. Demo only: nothing was actually sent.</p>';return}
+if(sent){var hot=a.when<=1;if(!dq&&bk.ph!=2){book();return}v.innerHTML=dq?'<div class="ok no">✕</div><h2>Sorry, we’re not able to help</h2><p style="color:var(--muted);font-size:14px">Sorry, we’re unable to help with your request based on your answers. Thank you for your interest.</p>':'<div class="ok">✓</div><h2>You’re qualified – we’ll contact you soon</h2><p style="color:var(--muted);font-size:14px">Thanks, '+a.ct.nm+'. '+(hot?'<b class="hi">Priority request: we’ll call you within 30 minutes</b>':'<b class="hi">We’ll call you within one working day</b>')+' to arrange your free quote.</p>';return}
 var q=flow()[st],h='<h2>'+q.q+'</h2>';
 if(q.t){h+=q.t.map(function(f){return '<input class="f" id="'+f[0]+'" type="'+f[2]+'" placeholder="'+f[1]+'" value="'+((a[q.id]&&a[q.id][f[0]])||"")+'">'}).join("")+'<label class="chk"><input type="checkbox" id="cs"'+(a.cs?' checked':'')+'><span>I agree to be called about my free quote and accept the <a href="#privacy">Privacy Policy</a>.</span></label><p class="er" id="er"></p>'}
-else h+='<div class="opts">'+q.o.map(function(o,i){return '<button type="button" class="opt'+(a[q.id]===i?' on':'')+'" data-i="'+i+'"><i>✓</i><span>'+o+'</span></button>'}).join("")+'</div>';
+else h+='<div class="opts">'+q.o.map(function(o,i){return '<button type="button" class="opt'+(a[q.id]===i?' on':'')+'" data-i="'+i+'"><i>'+o.split(" ")[0]+'</i><span>'+o.slice(o.indexOf(" ")+1)+'</span></button>'}).join("")+'</div>';
 h+='<div class="nav"><button type="button" class="back" id="bk"'+(st?'':' disabled')+'>← Back</button>'+(q.t?'<button type="button" class="btn p" id="nx">Get my quote</button>':'<span></span>')+'</div>';
 v.innerHTML=h;
 v.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){a[q.id]=+b.dataset.i;v.querySelectorAll(".opt").forEach(function(x){x.classList.remove("on")});b.classList.add("on");setTimeout(go,220)}});
