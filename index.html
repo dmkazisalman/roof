@@ -96,10 +96,6 @@ nav a{transition:background .25s,color .25s,transform .25s}nav a:hover{transform
 .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:13px}.cg i{font-style:normal;font-size:11px;font-weight:800;color:var(--muted);padding:6px 0}.cg button,.cg span{aspect-ratio:1}.cg button{border:0;border-radius:50%;background:none;color:var(--pri);font:inherit;font-weight:700;cursor:pointer;transition:.2s}.cg button:hover:not(:disabled){background:var(--soft)}.cg button:disabled{color:var(--bd);cursor:default}.cg button.on{background:var(--pri);color:#fff}
 .tz{text-align:center;font-size:12px;color:var(--muted);margin:8px 0}.tsg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.ts{border:1px solid var(--pri);background:var(--card);color:var(--pri);border-radius:10px;padding:10px 0;font:inherit;font-weight:800;cursor:pointer;transition:.2s}.ts:hover,.ts.on{background:var(--pri);color:#fff}.bkh{text-align:center}.bkh .ok{margin:0 auto 12px}
 .opt i{font-size:18px}
-.chk{display:flex;gap:14px;align-items:center;margin-top:16px;padding:18px;border:2px solid var(--pri);background:var(--soft);border-radius:14px;font-size:16px;font-weight:700;line-height:1.4;color:var(--fg);cursor:pointer}.chk input{width:30px;height:30px;flex:none;margin:0}
-.rev{margin-top:16px;border:1px solid var(--bd);border-radius:14px;padding:14px;background:var(--card);font-size:13px}.rev>b{display:block;font-size:15px;margin-bottom:8px}.rw{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--bd)}.rw span{grid-column:1/-1;color:var(--muted);font-size:12px}.rw button{background:none;border:0;color:var(--pri);font:inherit;font-weight:800;cursor:pointer}.rev p{margin:10px 0 0;font-weight:800;color:#b45309}
-.otp{display:flex;gap:8px;justify-content:center;margin:18px 0}.otp input{width:46px;height:56px;text-align:center;font:800 22px Archivo,sans-serif;border:2px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--fg);transition:.2s}.otp input:focus{outline:0;border-color:var(--pri);box-shadow:0 0 0 4px var(--soft)}
-.demo{background:#fff7e0;color:#7a4b00;border:1px dashed #e0a800;border-radius:10px;padding:10px;font-size:12px;text-align:center}.demo b{font-size:18px;letter-spacing:4px}
 </style></head><body>
 <div class="top"><div class="w"><span>🕒 Free, no-obligation quotes</span><span>📍 Demo City, UK</span><span>🛡 Local roofing specialists</span></div></div>
 <header><div class="w"><a class="logo" href="#top"><i>⌂</i><span>Your Roofing<br>Company</span></a>
@@ -163,7 +159,6 @@ var S=[["Roof replacement","Complete strip and replace with quality tiles, slate
 var SC=S.map(function(s,i){return '<div class="card'+(i?'':' hot')+'"><h3 style="font-size:16px">'+s[0]+'</h3><p>'+s[1]+'</p><a href="#survey">Get my free survey →</a></div>'}),SL=[];
 for(var z=0;z<SC.length;z+=3)SL.push('<div class="sg">'+SC.slice(z,z+3).join("")+'</div>');
 mk("sv2",SL,"one");
-var TEST_BD=true; /* set to false to remove the Bangladesh test post codes */
 var AREA=["E","EC","N","NW","SE","SW","W","WC","EN","IG","RM","CM","CO","SS","BR","CR","DA","HA","KT","SM","TW","UB","WD","SG","AL"];
 var R=function(a){return a.kind===0},C=function(a){return a.kind===1};
 var Q=[{id:"kind",q:"🏗️ What type of property needs roofing work?",o:["🏠 Residential (home)","🏢 Commercial (business)"]},
@@ -182,50 +177,46 @@ var MAIL="https://formsubmit.co/ajax/digitalzonebest@gmail.com";
 function send(d){try{d._template="table";d._captcha="false";d._honey="";fetch(MAIL,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(d)}).catch(function(){})}catch(e){}}
 function lead(){var d={},ct=a.ct||{};flow().forEach(function(q){if(!q.t)d[q.q.slice(q.q.indexOf(" ")+1)]=q.o[a[q.id]].slice(q.o[a[q.id]].indexOf(" ")+1)});
 d.Status=dq?"NOT QUALIFIED":"QUALIFIED";d.Priority=dq?"-":(a.when<=1?"HOT (call within 30 min)":"Normal (call within 1 working day)");
-if(!dq)d["Phone verified"]=OTP_MODE=="demo"?"Demo mode (not a real SMS check)":"Yes";d.Name=ct.nm;d.Phone=ct.ph;d["Post code"]=ct.pc;if(ct.co)d.Company=ct.co;d._subject="New roofing lead: "+d.Status+" - "+ct.nm;send(d)}
-/* PHONE OTP: "demo" shows the code on screen (no SMS). For real SMS replace newCode()/the check in verifyOtp() with Firebase Phone Auth or Twilio Verify. */
-var OTP_MODE="demo",otp=null;
+d.Name=ct.nm;d.Phone=ct.ph;d["Post code"]=ct.pc;if(ct.co)d.Company=ct.co;d._subject="New roofing lead: "+d.Status+" - "+ct.nm;send(d)}
+function sendBooking(){var ct=a.ct||{};send({_subject:"Call booked: "+ct.nm,Name:ct.nm,Phone:ct.ph,Date:bk.d.toDateString(),Time:bk.t,Timezone:Intl.DateTimeFormat().resolvedOptions().timeZone})}
+var bk={m:new Date(),d:null,t:null,ph:0};bk.m.setDate(1);bk.m.setHours(0,0,0,0);
 function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function newCode(){return String(Math.floor(100000+Math.random()*900000))}
-function otpView(msg){var ins="";for(var i=0;i<6;i++)ins+='<input inputmode="numeric" maxlength="1" aria-label="Digit '+(i+1)+'"'+(i==0?' autocomplete="one-time-code"':'')+'>';
-v.innerHTML='<div class="bkh"><div class="ok">📱</div><h2>Verify your phone number</h2><p style="color:var(--muted);font-size:14px;margin:6px 0 0">We’ve sent a 6-digit code to <b class="hi">'+esc(a.ct.ph)+'</b>. Enter it below to confirm it’s really you.</p></div><div class="otp">'+ins+'</div>'+(OTP_MODE=="demo"?'<div class="demo">🧪 Demo mode: no SMS is sent. Your code is <b>'+otp.c+'</b></div>':'')+'<p class="er" id="er">'+(msg||"")+'</p><div class="nav"><button type="button" class="back" id="ob">← Change number</button><button type="button" class="btn p" id="ov">Verify</button></div><p class="tz">Didn’t get it? <button type="button" class="back" id="rs" style="color:var(--pri)">Resend code</button></p>';
-var bx=[].slice.call(v.querySelectorAll(".otp input"));bx[0].focus();
-bx.forEach(function(b,i){b.oninput=function(){b.value=b.value.replace(/\D/g,"").slice(-1);if(b.value&&bx[i+1])bx[i+1].focus();if(bx.every(function(x){return x.value}))verifyOtp(bx)};
-b.onkeydown=function(e){if(e.key=="Backspace"&&!b.value&&bx[i-1]){bx[i-1].focus()}};
-b.onpaste=function(e){var t=((e.clipboardData||window.clipboardData).getData("text")||"").replace(/\D/g,"").slice(0,6);if(t){e.preventDefault();t.split("").forEach(function(c,j){bx[j].value=c});(bx[Math.min(t.length,5)]).focus();if(t.length==6)verifyOtp(bx)}}});
-document.getElementById("ov").onclick=function(){verifyOtp(bx)};
-document.getElementById("ob").onclick=function(){otp=null;paint()};
-document.getElementById("rs").onclick=function(){var w=30-Math.floor((Date.now()-otp.t)/1000);if(w>0){document.getElementById("er").textContent="Please wait "+w+" seconds before asking for a new code.";return}otp={c:newCode(),n:0,t:Date.now()};otpView("✅ A new code has been sent.")}}
-function verifyOtp(bx){var c=bx.map(function(x){return x.value}).join("");if(c.length<6){document.getElementById("er").textContent="Please enter all 6 digits.";return}
-if(c===otp.c){otp=null;a.vf=true;sent=true;lead();paint();return}
-otp.n++;if(otp.n>=5){otp={c:newCode(),n:0,t:Date.now()-30000};otpView("Too many wrong attempts. We’ve sent you a new code.");return}
-otpView("❌ That code isn’t right. "+(5-otp.n)+" tries left.")}
-var editing=false;function nextSt(){var fl=flow();if(editing){for(var j=0;j<fl.length;j++)if(!fl[j].t&&a[fl[j].id]===undefined)return j;return fl.length-1}return st+1}
+function book(){var nm=esc((a.ct.nm||"").split(" ")[0]),tz=Intl.DateTimeFormat().resolvedOptions().timeZone,now=new Date(),today=new Date();today.setHours(0,0,0,0);
+if(bk.ph==1){v.innerHTML='<div class="bkh"><div class="ok">✓</div><h2>You’re booked, '+nm+'</h2><p style="color:var(--muted);font-size:14px"><b class="hi">'+bk.d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})+' at '+bk.t+'</b> ('+esc(tz)+'). Our team will still ring you first to confirm.</p></div>';return}
+var y=bk.m.getFullYear(),mo=bk.m.getMonth(),first=new Date(y,mo,1).getDay(),dim=new Date(y,mo+1,0).getDate(),c="";
+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(function(d){c+='<i>'+d+'</i>'});
+for(var i=0;i<first;i++)c+='<span></span>';
+for(var d=1;d<=dim;d++){var dt=new Date(y,mo,d),okd=dt>=today&&dt.getDay()!=0;c+='<button type="button" data-t="'+(+dt)+'" class="'+(bk.d&&+bk.d==+dt?'on':'')+'"'+(okd?'':' disabled')+'>'+d+'</button>'}
+var sl="";if(bk.d){var H=[9,10,11,12,14,15,16,17],tod=+bk.d==+today;sl='<div class="tsg">'+H.filter(function(h){return!tod||h>now.getHours()}).map(function(h){var l=(h>12?h-12:h)+':00 '+(h<12?'AM':'PM');return '<button type="button" class="ts'+(bk.t==l?' on':'')+'" data-s="'+l+'">'+l+'</button>'}).join("")+'</div>'}
+var cur=new Date();cur.setDate(1);cur.setHours(0,0,0,0);
+v.innerHTML='<div class="bkh"><div class="ok">✓</div><h2>Got it, '+nm+' — now pick a time</h2><p style="color:var(--muted);font-size:14px;margin:6px 0 0">Choose a slot that suits and it’s booked. Our team will still ring you first to confirm.</p></div><div class="cal"><div class="ch"><button type="button" id="pv" aria-label="Previous month"'+(+bk.m<=+cur?' disabled':'')+'>‹</button><b>'+bk.m.toLocaleDateString("en-GB",{month:"long",year:"numeric"})+'</b><button type="button" id="nm2" aria-label="Next month">›</button></div><div class="cg">'+c+'</div></div><p class="tz">🌍 '+esc(tz)+'</p>'+sl+'<div class="nav"><button type="button" class="back" id="sk">Skip, just call me</button><button type="button" class="btn p" id="bn"'+(bk.d&&bk.t?'':' disabled')+'>Book my free survey call</button></div>';
+document.getElementById("pv").onclick=function(){bk.m=new Date(y,mo-1,1);book()};
+document.getElementById("nm2").onclick=function(){bk.m=new Date(y,mo+1,1);book()};
+v.querySelectorAll(".cg button").forEach(function(b){b.onclick=function(){bk.d=new Date(+b.dataset.t);bk.t=null;book()}});
+v.querySelectorAll(".ts").forEach(function(b){b.onclick=function(){bk.t=b.dataset.s;book()}});
+document.getElementById("sk").onclick=function(){bk.ph=2;paint()};
+document.getElementById("bn").onclick=function(){bk.ph=1;sendBooking();book()}}
 var a={},st=0,sent=false,dq=false,v=document.getElementById("sv");
 function flow(){return Q.filter(function(q){return!q.if||q.if(a)})}
 function go(){var q=flow()[st],err="";
 if(q.t){var o={};q.t.forEach(function(f){o[f[0]]=document.getElementById(f[0]).value.trim()});
 var p=o.pc.toUpperCase().replace(/\s+/g,"");
-var bd=TEST_BD&&/^\d{4}$/.test(p);
-if(!bd&&!/^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(p))err="Please enter a valid UK post code.";
+if(!/^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(p))err="Please enter a valid UK post code.";
 else if(o.nm.length<2)err="Please enter your name.";else if(o.co!==undefined&&o.co.length<2)err="Please enter your company name.";
 else if(!/^\+?\d{10,13}$/.test(o.ph.replace(/[\s()-]/g,"")))err="Please enter a valid phone number.";
 else if(!document.getElementById("cs").checked)err="Please tick the box so we can call you.";
 if(err){document.getElementById("er").textContent=err;return}
-a.pcbad=bd?false:AREA.indexOf(p.match(/^[A-Z]{1,2}/)[0])<0;a[q.id]=o;a.cs=true}
-if(st>=flow().length-1){dq=!!a.pcbad||flow().some(function(f){return f.x&&f.x[a[f.id]]});if(dq){sent=true;lead()}else otp={c:newCode(),n:0,t:Date.now()}}else{st=nextSt();editing=false}paint()}
+a.pcbad=AREA.indexOf(p.match(/^[A-Z]{1,2}/)[0])<0;a[q.id]=o;a.cs=true}
+if(st>=flow().length-1){dq=!!a.pcbad||flow().some(function(f){return f.x&&f.x[a[f.id]]});sent=true;lead()}else st++;paint()}
 function paint(){var N=flow().length,p=Math.round((st+1)/N*100);document.getElementById("sl").textContent="Step "+(st+1)+" of "+N;document.getElementById("sp").textContent=p+"%";document.getElementById("sb").style.width=p+"%";
-if(otp&&!sent){otpView();return}
-if(sent){var hot=a.when<=1;v.innerHTML=dq?'<div class="ok no">✕</div><h2>Sorry, we’re not able to help</h2><p style="color:var(--muted);font-size:14px">Sorry, we’re unable to help with your request based on your answers. Thank you for your interest.</p>':'<div class="ok">✓</div><h2>You’re qualified – we’ll contact you soon</h2><p style="color:var(--muted);font-size:14px">Thanks, '+a.ct.nm+'. '+(hot?'<b class="hi">Priority request: we’ll call you within 30 minutes</b>':'<b class="hi">We’ll call you within one working day</b>')+' to arrange your free quote.</p>';return}
+if(sent){var hot=a.when<=1;if(!dq&&bk.ph!=2){book();return}v.innerHTML=dq?'<div class="ok no">✕</div><h2>Sorry, we’re not able to help</h2><p style="color:var(--muted);font-size:14px">Sorry, we’re unable to help with your request based on your answers. Thank you for your interest.</p>':'<div class="ok">✓</div><h2>You’re qualified – we’ll contact you soon</h2><p style="color:var(--muted);font-size:14px">Thanks, '+a.ct.nm+'. '+(hot?'<b class="hi">Priority request: we’ll call you within 30 minutes</b>':'<b class="hi">We’ll call you within one working day</b>')+' to arrange your free quote.</p>';return}
 var q=flow()[st],h='<h2>'+q.q+'</h2>';
-if(q.t){h+=q.t.map(function(f){return '<input class="f" id="'+f[0]+'" type="'+f[2]+'" placeholder="'+f[1]+'" value="'+((a[q.id]&&a[q.id][f[0]])||"")+'">'}).join("")+'<div class="rev"><p>⚠️ Please go back and check all your data is correct before you submit.</p></div><label class="chk"><input type="checkbox" id="cs"'+(a.cs?' checked':'')+'><span>I agree to be called about my free quote and accept the <a href="#privacy">Privacy Policy</a>.</span></label><p class="er" id="er"></p>'}
+if(q.t){h+=q.t.map(function(f){return '<input class="f" id="'+f[0]+'" type="'+f[2]+'" placeholder="'+f[1]+'" value="'+((a[q.id]&&a[q.id][f[0]])||"")+'">'}).join("")+'<label class="chk"><input type="checkbox" id="cs"'+(a.cs?' checked':'')+'><span>I agree to be called about my free quote and accept the <a href="#privacy">Privacy Policy</a>.</span></label><p class="er" id="er"></p>'}
 else h+='<div class="opts">'+q.o.map(function(o,i){return '<button type="button" class="opt'+(a[q.id]===i?' on':'')+'" data-i="'+i+'"><i>'+o.split(" ")[0]+'</i><span>'+o.slice(o.indexOf(" ")+1)+'</span></button>'}).join("")+'</div>';
 h+='<div class="nav"><button type="button" class="back" id="bk"'+(st?'':' disabled')+'>← Back</button>'+(q.t?'<button type="button" class="btn p" id="nx">Get my quote</button>':'<span></span>')+'</div>';
 v.innerHTML=h;
 v.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){a[q.id]=+b.dataset.i;v.querySelectorAll(".opt").forEach(function(x){x.classList.remove("on")});b.classList.add("on");setTimeout(go,220)}});
-function keep(){if(!q.t)return;var o={};q.t.forEach(function(f){o[f[0]]=document.getElementById(f[0]).value});a[q.id]=o;a.cs=document.getElementById("cs").checked}
-document.getElementById("bk").onclick=function(){keep();st--;paint()};
-v.querySelectorAll(".rw button").forEach(function(b){b.onclick=function(){keep();editing=true;st=+b.dataset.j;paint()}});
+document.getElementById("bk").onclick=function(){st--;paint()};
 if(q.t)document.getElementById("nx").onclick=go}
 paint();
 var G=[["Slate re-roof"],["Flat roof renewal"],["Tile repair"],["Guttering and fascias"],["Chimney rebuild"],["Full roof replacement"],["Storm damage repair"]];
